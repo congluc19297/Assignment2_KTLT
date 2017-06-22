@@ -430,6 +430,17 @@ int subTwoDays(const date_t &d1, const date_t &d2) {
 // Input:       str
 // Return:     int
 ///////////////////////////////////////////////////////////////////////////////////////////////
-int stringToint(string str) {
-	return atoi(str.c_str());
+int stringToint(string str){
+	string strEnd = "";
+	int lengRes = 0;
+	for (int i = 0; i < str.length(); i++)
+	{
+		char c = str[i];
+		int ascii_c = c;
+		if (ascii_c >= 48 && ascii_c <= 57){
+			strEnd.push_back(c);
+			lengRes++;
+		}
+	}
+	return atoi(strEnd.c_str());
 }

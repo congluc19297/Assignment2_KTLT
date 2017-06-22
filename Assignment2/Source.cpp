@@ -47,6 +47,8 @@ void viewNotifications(void);
 void deleteAccount(void);
 void returnBook(void);
 void createBook(void);
+void handleBorrowBook(void);
+void deleteBook(void);
 bool doLogin(void);
 
 int main(){
@@ -668,16 +670,14 @@ void runMenuLibrarian(void) {
 				wait(3);
 				break;
 			case 3:
-				printWarn("Xoa sach nao do - Ai lam thi viet ham o day");
-				wait(3);
+				deleteBook();
 				break;
 			case 4:
 				printWarn("Tim kiem sach - Ai lam thi viet ham o day");
 				wait(3);
 				break;
 			case 5:
-				printWarn("Ghi nhan muon sach - Ai lam thi viet ham o day");
-				wait(3);
+				handleBorrowBook();
 				break;
 			case 6:
 				printWarn("Ghi nhan tra sach - Ai lam thi viet ham o day");
@@ -1509,5 +1509,123 @@ void createBook(void){
 
 	books.push_back(book);
 	printWarn("Them 1 dau sach thanh cong!!!");
+	wait(2);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       handleBorrowBook
+// Purpose:    Xu li chap nhan viec muon sach cua doc gia
+// Parameters:
+// Return:    
+///////////////////////////////////////////////////////////////////////////////////////////////
+void handleBorrowBook(void) {
+	string accountNo, strWarn = "";
+	short x, y;
+	int idxAcc;
+	vector<Borrow_Book> list;
+
+	printUserLogin(customer.c_accounts.accountNo);
+	printTitle("GHI NHAN MUON SACH");
+	accountNo = inputUserName();
+	idxAcc = searchAcc(accounts, accountNo);
+
+
+	if (idxAcc != -1) {
+		///////////
+
+		for (int i = 0; i < borrowBooks.size(); i++)
+		{
+			if (borrowBooks[i].accountNo == accounts[idxAcc].accountNo
+				&& borrowBooks[i].acc_Book.countBook == 0) {
+				list.push_back(borrowBooks[i]);
+			}
+		}
+
+		int		userChoose, selector = 0, numOfFunction = 5;
+		string  nameOfFunction[] = {
+			"Dang nhap",
+			"Tim kiem sach",
+			"Dang ky tai khoan",
+			"Thay doi mat khau",
+			"Thoat"
+		};
+
+		while (1) {
+			printMenu(nameOfFunction, numOfFunction, selector);
+			userChoose = readKey();
+			if (userChoose == Enter) {
+				switch (selector + 1) {
+				case 1:
+					break;
+				}
+			}
+			else {
+				processUserChoose(userChoose, selector, numOfFunction);
+			}
+		}
+		///////////
+	}
+	else {
+		strWarn = "Username khong ton tai";
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       deleteBook
+// Purpose:    Thuc hien viec xoa 1 cuon sach cua thu thu
+// Parameters:
+// Return:    
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void deleteBook(void){
+	int     indexBook;
+	short   x, y;
+	int     userChoose;
+	string  strWarn = "";
+	string  nameBook;
+
+	//show title
+	printUserLogin(customer.c_accounts.accountNo);
+	printTitle("XOA MOT CUON SACH");
+
+
+	//show notice and input name book
+	nameBook = inputString("Nhap ten cuon sach muon xoa: ");
+
+	indexBook = searchBook(books, nameBook);
+
+	if (indexBook != -1){
+		setWindows(120);
+		printBookDetail(books, indexBook);
+
+		x = wherex();
+		y = wherey();
+
+		while (1)
+		{
+			clreop(x, y);
+			cout << "    Xoa toan bo thong tin sach nay (1:Yes / 0:No): " << endl << endl;
+			printWarn(strWarn);
+			cout << " >> ";
+			cin >> userChoose;
+			if (!inputGood() || userChoose < 0 || userChoose > 1) {
+				strWarn = "Khong hop le: 1:Yes / 0:No";
+			}
+			else{
+				if (userChoose == 1){
+					clreop(x, y);
+					books.erase(books.begin() + indexBook);
+					strWarn = "Da xoa thanh cong!!!";
+
+				}
+				break;
+			}
+		}
+	}
+	else{
+		strWarn = "Ten sach khong ton tai!";
+	}
+	clreop(wherex(), wherey());
+	printWarn(strWarn);
 	wait(2);
 }

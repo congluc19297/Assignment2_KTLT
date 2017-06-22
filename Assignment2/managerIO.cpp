@@ -494,23 +494,32 @@ void printBorrowBook(const vector<Borrow_Book> &BBB) {
 		<< left << "|" << setw(11) << setfill(' ') << "NGAY MUON"
 		<< left << "|" << setw(11) << setfill(' ') << "NGAY TRA"
 		<< left << "|" << endl;
-	cout << setw(100) << setfill('=') << '=' << endl;
+	cout << setw(110) << setfill('=') << '=' << endl;
 	for (int i = 0; i < BBB.size(); i++)
 	{
+	/*	countBook =  n + 2 cua acc_Book => Dang gui thong bao tra sach tre han n ngay
+	countBook =  2 cua acc_Book => Dang gui thong bao tra sach kip thoi gian
+	countBook =  0 cua acc_Book => Dang gui thong bao muon sach
+	countBook =  1 cua acc_Book => Duoc thu thu duyet muon sach
+	countBook = -1 cua acc_Book => Duoc thu thu duyet tra sach kip thoi han
+	countBook = -(n + 1) cua acc_Book => Thu thu duyet tra sach cham tre n ngay
+	*/
 		string status = "";
 		if (BBB[i].acc_Book.countBook == 0) status = "Chua duyet";
-		else if (BBB[i].acc_Book.countBook == 1) status = "Dang muon";
-		else if (BBB[i].acc_Book.countBook == -1) status = "Da tra sach";
-		else if (BBB[i].acc_Book.countBook < -1) status = "Bi phat";
+		else if (BBB[i].acc_Book.countBook == 1) status = "Da duyet";
+		else if (BBB[i].acc_Book.countBook == 2) status = "TB tra sach (DH)";
+		else if (BBB[i].acc_Book.countBook == -1) status = "Da tra sach (DH)";
+		else if (BBB[i].acc_Book.countBook < -1) status = "Da tra sach (TH)";
+		else if (BBB[i].acc_Book.countBook > 2) status = "TB tra sach (TH)";
 		cout << left << "|" << setw(20) << setfill(' ') << BBB[i].accountNo.substr(0, 30)
 			<< left << "|" << setw(40) << setfill(' ') << BBB[i].acc_Book.bookTitle.substr(0, 50)
-			<< left << "|" << setw(12) << setfill(' ') << status
+			<< left << "|" << setw(22) << setfill(' ') << status
 			<< left << "|" << setw(11) << setfill(' ') << toString(BBB[i].dateBorrowBook)
 			<< left << "|" << setw(11) << setfill(' ') << toString(BBB[i].dateReturnBook)
 			<< left << "|" << endl;
 	}
 	
-	cout << setw(100) << setfill('=') << '=' << endl << endl;
+	cout << setw(110) << setfill('=') << '=' << endl << endl;
 	setColor(Bright_White, Light_Red);
 	cout << "\n\nNhan phim bat ky de thoat! ";
 	setColor(Bright_White, Black);
@@ -561,4 +570,21 @@ int inputInt(string request) {
 	cout << endl;
 	intRes = stringToint(strEnd);
 	return intRes;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       printBookDetail
+// Purpose:    Hien thi chi tiet 1 cuon sach voi indexBook
+// Parameters: books, indexbook
+// Return:    
+///////////////////////////////////////////////////////////////////////////////////////////////
+void printBookDetail(const vector<Book> &books, const int &indexBook) {
+	Book isBook = books[indexBook];
+	cout << endl;
+	cout << " >> Ma sach: " << isBook.book_no << endl;
+	cout << " >> Tieu de sach: " << isBook.bookTitle << endl;
+	cout << " >> Tac gia sach: " << isBook.author << endl;
+	cout << " >> So luong sach: " << isBook.countBook << endl;
+	cout << endl;
 }

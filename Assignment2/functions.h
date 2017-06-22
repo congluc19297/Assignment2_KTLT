@@ -61,10 +61,10 @@ typedef struct {
 /*
 	countBook =  n + 2 cua acc_Book => Dang gui thong bao tra sach tre han n ngay
 	countBook =  2 cua acc_Book => Dang gui thong bao tra sach kip thoi gian
-	countBook =  0 cua acc_Book => Disable, dang gui thong bao muon sach
-	countBook =  1 cua acc_Book => Enable, duoc thu thu duyet muon sach
-	countBook = -1 cua acc_Book => Gui thong bao tra sach kip thoi han
-	countBook = -(n + 1) cua acc_Book => Tra sach cham tre n ngay
+	countBook =  0 cua acc_Book => Dang gui thong bao muon sach
+	countBook =  1 cua acc_Book => Duoc thu thu duyet muon sach
+	countBook = -1 cua acc_Book => Duoc thu thu duyet tra sach kip thoi han
+	countBook = -(n + 1) cua acc_Book => Thu thu duyet tra sach cham tre n ngay
 */
 
 struct Customer {
