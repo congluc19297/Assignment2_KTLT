@@ -1,29 +1,30 @@
-﻿Build started 22/06/2017 21:39:34.
+﻿Build started 23/06/2017 09:51:24.
      1>Project "D:\HCMUT\Hoc ky 4\KyThuatLapTrinh\ASS2\Assignment2\Assignment2\Assignment2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
          Source.cpp
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(299): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(312): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(325): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(341): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(353): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(369): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(383): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(404): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(749): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(750): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(774): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(787): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(853): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'int', possible loss of data
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(911): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'int', possible loss of data
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1097): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1155): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1314): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1380): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1536): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1523): warning C4101: 'y' : unreferenced local variable
-     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1523): warning C4101: 'x' : unreferenced local variable
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(302): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(315): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(328): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(344): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(356): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(372): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(386): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(407): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(757): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(758): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(782): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(795): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(861): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(919): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1105): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1163): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1237): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1295): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1455): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1521): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1678): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\hcmut\hoc ky 4\kythuatlaptrinh\ass2\assignment2\assignment2\source.cpp(1761): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\HCMUT\Hoc ky 4\KyThuatLapTrinh\ASS2\Assignment2\Debug\Assignment2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\HCMUT\Hoc ky 4\KyThuatLapTrinh\ASS2\Assignment2\Debug\Assignment2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\HCMUT\Hoc ky 4\KyThuatLapTrinh\ASS2\Assignment2\Debug\Assignment2.lib" /MACHINE:X86 Debug\functions.obj
          Debug\LibsWindow.obj
@@ -34,4 +35,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.27
+Time Elapsed 00:00:06.48

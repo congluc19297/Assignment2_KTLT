@@ -267,6 +267,75 @@ date_t inputDate(string request) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       inputRole
+// Purpose:    Dieu khien viec nhap quyen cho account va kiem soat loi
+// Parameters:
+// - str
+// Return:     date_t
+///////////////////////////////////////////////////////////////////////////////////////////////
+void inputRole(string request, role_t roleDesc[]) {
+	string	strWarn = "";
+	int docGia, thuThu, quanLyNguoiDung;
+	short	x = wherex();
+	short	y = wherey();
+
+	while (1) {
+		clreop(x, y);
+		cout << "    " << request << endl << endl;
+		printWarn(strWarn);
+		cout << " >> Doc gia:          Thu thu:          Quan ly nguoi dung:";
+		gotoxy(x + 12, y + 2);
+		cin >> docGia;
+		if (!inputGood() || docGia > 1 || docGia < 0) {
+			strWarn = "Khong khong le! (1: Yes | 0: No)";
+		}
+		else {
+			gotoxy(x + 30, y + 2);
+			cin >> thuThu;
+			if (!inputGood() || thuThu > 1 || thuThu < 0) {
+				strWarn = "Khong khong le! (1: Yes | 0: No)";
+			}
+			else {
+				gotoxy(x + 59, y + 2);
+				cin >> quanLyNguoiDung;
+				if (!inputGood() || quanLyNguoiDung > 1 || quanLyNguoiDung < 0) {
+					strWarn = "Khong khong le! (1: Yes | 0: No)";
+				}
+				else {
+					cout << endl;
+					for (int i = 0; i < MaxRole; i++) roleDesc[i] = NONE;
+					if (docGia == 1) {
+						for (int i = 0; i < MaxRole; i++) {
+							if (roleDesc[i] == NONE) {
+								roleDesc[i] = DOC_GIA;
+								break;
+							}
+						}
+					}
+					if (thuThu == 1) {
+						for (int i = 0; i < MaxRole; i++) {
+							if (roleDesc[i] == NONE) {
+								roleDesc[i] = THU_THU;
+								break;
+							}
+						}
+					}
+					if (quanLyNguoiDung == 1) {
+						for (int i = 0; i < MaxRole; i++) {
+							if (roleDesc[i] == NONE) {
+								roleDesc[i] = QUAN_LY_NGUOI_DUNG;
+								break;
+							}
+						}
+					}
+					return;
+				}
+			}
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 // Name:       printBook
 // Purpose:    Hien thi danh sach san pham
 // Parameters:

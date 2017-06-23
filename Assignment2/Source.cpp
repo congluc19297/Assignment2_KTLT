@@ -39,6 +39,7 @@ void runMenuLibrarian(void);
 void searchBook(void);
 void changePassword(const Customer &cus, bool check_Manager);
 void createAccount(void);
+void createAccount(string);
 void processingMultiRole(void);
 void enable_disableAccount(void);
 void searchAccDetail(void);
@@ -48,7 +49,9 @@ void deleteAccount(void);
 void returnBook(void);
 void createBook(void);
 void handleBorrowBook(void);
+void handleReturnBook(void);
 void deleteBook(void);
+void editBook(void);
 bool doLogin(void);
 
 int main(){
@@ -552,9 +555,7 @@ void runMenuManageUser(void) {
 		if (userChoose == Enter) {
 			switch (selector + 1) {
 			case 1:
-				system("cls");
-				printWarn("Them tai khoan moi - Ai lam thi viet ham o day");
-				wait(3);
+				createAccount("managerUser");
 				break;
 			case 2:
 				newNotification();
@@ -572,6 +573,9 @@ void runMenuManageUser(void) {
 				deleteAccount();
 				break;
 			case 7:
+				Customer resetCustomer;
+				customer = resetCustomer;
+				customer.c_accounts.accountNo = "";
 				return;
 			}
 		}
@@ -626,6 +630,9 @@ void runMenuReader(void) {
 				changePassword(customer, false);
 				break;
 			case 6:
+				Customer resetCustomer;
+				customer = resetCustomer;
+				customer.c_accounts.accountNo = "";
 				return;
 			}
 		}
@@ -666,8 +673,7 @@ void runMenuLibrarian(void) {
 				createBook();
 				break;
 			case 2:
-				printWarn("Chinh sua thong tin sach - Ai lam thi viet ham o day");
-				wait(3);
+				editBook();
 				break;
 			case 3:
 				deleteBook();
@@ -680,8 +686,7 @@ void runMenuLibrarian(void) {
 				handleBorrowBook();
 				break;
 			case 6:
-				printWarn("Ghi nhan tra sach - Ai lam thi viet ham o day");
-				wait(3);
+				handleReturnBook();
 				break;
 			case 7:
 				printWarn("Quan ly thoi gian muon sach - Ai lam thi viet ham o day");
@@ -691,6 +696,9 @@ void runMenuLibrarian(void) {
 				changePassword(customer, false);
 				break;
 			case 9:
+				Customer resetCustomer;
+				customer = resetCustomer;
+				customer.c_accounts.accountNo = "";
 				return;
 			}
 		}
@@ -1177,6 +1185,139 @@ void createAccount(void) {
 	wait(2);
 }
 
+void createAccount(string managerUser) {
+	string  strTemp, str_roleID = "R", warn = ""; //Bien luu password nhap lan 2
+	short x, y;
+	int idxUser;
+	Account acc;
+	Role role;
+	AccountRoleMap roleMap;
+	User	user;
+
+	system("cls");
+	printTitle("ADMIN CAP PHAT TAI KHOAN MOI");
+
+	user.userNo = inputString("Nhap ID/CMND: ");
+	user.email = inputString("Nhap email: ", false);
+
+	clreop(wherex(), wherey());
+	idxUser = searchUser(users, user.userNo);
+	if (idxUser != -1) {
+		//User da ton tai, lap tai khoan moi
+		if (user.email == users[idxUser].email) {
+			user = users[idxUser];
+			acc.accountNo = inputString("Nhap username: ", false);
+			acc.password = inputPassword("Nhap password: ");
+			acc.userNo = user.userNo;
+			acc.isActive = false;
+			int count = 0;
+			while (true)
+			{
+				x = wherex();
+				y = wherey();
+				clreop(x, y);
+				strTemp = inputPassword("Xac nhan lai password: ");
+
+				if (strTemp != acc.password) {
+					count++;
+					printWarn("Mat khau khong hop le!");
+					wait(1);
+					gotoxy(x, y);
+
+				}
+				else break;
+				if (count > 3) return;
+			}
+
+			role.countRole = 0;
+			inputRole("Xet quyen cho account (1: Yes | 0: No)", role.roleDesc);
+			for (int i = 0; i < MaxRole; i++) {
+				if (role.roleDesc[i] != NONE) role.countRole++;
+			}
+			srand(time(NULL));
+			while (1)
+			{
+				int roleID = rand() % 1000 + 1;
+				str_roleID += intTostring(roleID);
+				if (searchRole(roles, str_roleID) != -1) continue;
+				else break;
+			}
+			role.roleID = str_roleID;
+
+			roleMap.accountNo = acc.accountNo;
+			roleMap.roleID = role.roleID;
+
+			accounts.push_back(acc);
+			accRoleMaps.push_back(roleMap);
+			roles.push_back(role);
+
+			printWarn("Tao account moi thanh khong");
+
+		}
+		else {
+			printWarn("User nay da ton tai, khong trung khop email!");
+		}
+	}
+	else {
+		user.userName = inputString("Nhap ho va ten: ", false);
+		user.career = inputString("Nghe nghiep: ", false);
+		user.BOD = inputDate("Nhap ngay thang nam sinh: ");
+
+		acc.accountNo = inputString("Nhap username: ", false);
+		acc.password = inputPassword("Nhap password: ");
+		acc.userNo = user.userNo;
+		acc.isActive = true;
+
+		int count = 0;
+		while (true)
+		{
+			x = wherex();
+			y = wherey();
+			clreop(x, y);
+			strTemp = inputPassword("Xac nhan lai password: ");
+
+			if (strTemp != acc.password) {
+				count++;
+				printWarn("Mat khau khong hop le!");
+				wait(1);
+				gotoxy(x, y);
+
+			}
+			else break;
+			if (count > 3) return;
+		}
+
+		role.countRole = 0;
+		inputRole("Xet quyen cho account (1: Yes | 0: No)", role.roleDesc);
+		for (int i = 0; i < MaxRole; i++) {
+			if (role.roleDesc[i] != NONE) role.countRole++;
+		}
+		srand(time(NULL));
+		while (1)
+		{
+			int roleID = rand() % 1000 + 1;
+			str_roleID += intTostring(roleID);
+			if (searchRole(roles, str_roleID) != -1) continue;
+			else break;
+		}
+		role.roleID = str_roleID;
+
+		roleMap.accountNo = acc.accountNo;
+		roleMap.roleID = role.roleID;
+
+		users.push_back(user);
+		accounts.push_back(acc);
+		accRoleMaps.push_back(roleMap);
+		roles.push_back(role);
+
+		printWarn("Tao account moi thanh khong");
+
+	}
+
+	wait(2);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Name:       enable_disableAccount
 // Purpose:    Kich hoat hoac vo hieu hoa tai khoan
@@ -1521,7 +1662,7 @@ void createBook(void){
 void handleBorrowBook(void) {
 	string accountNo, strWarn = "";
 	short x, y;
-	int idxAcc;
+	int idxAcc, idxBorrowBook;
 	vector<Borrow_Book> list;
 
 	printUserLogin(customer.c_accounts.accountNo);
@@ -1532,7 +1673,8 @@ void handleBorrowBook(void) {
 
 	if (idxAcc != -1) {
 		///////////
-
+		x = wherex();
+		y = wherey();
 		for (int i = 0; i < borrowBooks.size(); i++)
 		{
 			if (borrowBooks[i].accountNo == accounts[idxAcc].accountNo
@@ -1541,33 +1683,151 @@ void handleBorrowBook(void) {
 			}
 		}
 
-		int		userChoose, selector = 0, numOfFunction = 5;
-		string  nameOfFunction[] = {
-			"Dang nhap",
-			"Tim kiem sach",
-			"Dang ky tai khoan",
-			"Thay doi mat khau",
-			"Thoat"
-		};
+		int		userChoose, selector = 0, numOfFunction = list.size();
 
-		while (1) {
-			printMenu(nameOfFunction, numOfFunction, selector);
-			userChoose = readKey();
-			if (userChoose == Enter) {
-				switch (selector + 1) {
-				case 1:
-					break;
+		if (numOfFunction > 0) {
+			string *nameOfFunction = new string[numOfFunction];
+
+			for (int i = 0; i < numOfFunction; i++) {
+				nameOfFunction[i] = list[i].acc_Book.bookTitle + " - " + list[i].acc_Book.author;
+			}
+
+			while (1) {
+				clreop(x, y);
+				printMenu(nameOfFunction, numOfFunction, selector);
+				userChoose = readKey();
+				if (userChoose == Enter) {
+					idxBorrowBook = searchBorrowBook(borrowBooks, accounts[idxAcc].accountNo, list[selector].acc_Book.bookTitle);
+					if (idxBorrowBook != -1) {
+						int idxBook = searchBook(books, list[selector].acc_Book.bookTitle);
+
+						if (idxBook != -1) {
+							if (books[idxBook].countBook > 0) {
+								//Gia so luong sach trong kho xuong 1 don vi
+								books[idxBook].countBook--;
+								
+								//Ghi nhan cuon sach nay da duoc thu thu duyet cho nguoi dung muon
+								borrowBooks[idxBorrowBook].acc_Book.countBook = 1;
+								cout << endl;
+								strWarn = "Thanh Cong!";
+								break;
+							}
+							else {
+								strWarn = "So luong cuon sach trong kho khong du, quay tro lai lan sau!";
+							}
+						}
+					}
+				}
+				else {
+					processUserChoose(userChoose, selector, numOfFunction);
 				}
 			}
-			else {
-				processUserChoose(userChoose, selector, numOfFunction);
-			}
 		}
-		///////////
+		else
+		{
+			strWarn = "Username nay chua dang ky muon cuon sach nao!";
+		}
 	}
 	else {
 		strWarn = "Username khong ton tai";
 	}
+	clreop(wherex(), wherey());
+	printWarn(strWarn);
+	wait(2);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       handleBorrowBook
+// Purpose:    Xu li chap nhan viec muon sach cua doc gia
+// Parameters:
+// Return:    
+///////////////////////////////////////////////////////////////////////////////////////////////
+void handleReturnBook(void) {
+	string accountNo, strWarn = "";
+	short x, y;
+	int idxAcc, idxBorrowBook;
+	vector<Borrow_Book> list;
+
+	printUserLogin(customer.c_accounts.accountNo);
+	printTitle("GHI NHAN TRA SACH");
+	accountNo = inputUserName();
+	idxAcc = searchAcc(accounts, accountNo);
+
+
+	if (idxAcc != -1) {
+		///////////
+		x = wherex();
+		y = wherey();
+		for (int i = 0; i < borrowBooks.size(); i++)
+		{
+			if (borrowBooks[i].accountNo == accounts[idxAcc].accountNo
+				&& borrowBooks[i].acc_Book.countBook >= 2) {
+				list.push_back(borrowBooks[i]);
+			}
+		}
+
+		int		userChoose, selector = 0, numOfFunction = list.size();
+
+		if (numOfFunction > 0) {
+			string *nameOfFunction = new string[numOfFunction];
+
+			for (int i = 0; i < numOfFunction; i++) {
+				nameOfFunction[i] = list[i].acc_Book.bookTitle + " - " + list[i].acc_Book.author;
+			}
+
+			while (1) {
+				clreop(x, y);
+				printMenu(nameOfFunction, numOfFunction, selector);
+				userChoose = readKey();
+				if (userChoose == Enter) {
+					idxBorrowBook = searchBorrowBook(borrowBooks, accounts[idxAcc].accountNo, list[selector].acc_Book.bookTitle);
+					if (idxBorrowBook != -1) {
+						int idxBook = searchBook(books, list[selector].acc_Book.bookTitle);
+
+						if (idxBook != -1) {
+							//Tang so luong sach trong kho len 1 don vi
+							books[idxBook].countBook++;
+
+							//Ghi nhan cuon sach nay da duoc thu thu duyet cho nguoi dung muon
+							if (borrowBooks[idxBorrowBook].acc_Book.countBook == 2) {
+								NotificationAcc Noti;
+								date_t currTime = getTimeCurr();
+								Noti.accountNo = borrowBooks[idxBorrowBook].accountNo;
+								Noti.noti = "Tra sach co ma so " + borrowBooks[idxBorrowBook].acc_Book.book_no
+									+ " ngay " + toString(currTime) + " kip thoi han";
+							}
+							else if (borrowBooks[idxBorrowBook].acc_Book.countBook > 2) {
+								NotificationAcc Noti;
+								date_t currTime = getTimeCurr();
+								int temp = borrowBooks[idxBorrowBook].acc_Book.countBook - 2;
+								Noti.accountNo = borrowBooks[idxBorrowBook].accountNo;
+								Noti.noti = "Tra sach co ma so " + borrowBooks[idxBorrowBook].acc_Book.book_no
+									+ " ngay " + toString(currTime) + " tre thoi han " + intTostring(temp) + " ngay";
+							}
+							borrowBooks.erase(borrowBooks.begin() + idxBorrowBook);
+
+							cout << endl;
+							strWarn = "Thanh Cong!";
+							break;
+						}
+					}
+				}
+				else {
+					processUserChoose(userChoose, selector, numOfFunction);
+				}
+			}
+		}
+		else
+		{
+			strWarn = "Username nay chua gui yeu cau tra cuon sach nao!";
+		}
+	}
+	else {
+		strWarn = "Username khong ton tai";
+	}
+	clreop(wherex(), wherey());
+	printWarn(strWarn);
+	wait(2);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1617,6 +1877,143 @@ void deleteBook(void){
 					books.erase(books.begin() + indexBook);
 					strWarn = "Da xoa thanh cong!!!";
 
+				}
+				break;
+			}
+		}
+	}
+	else{
+		strWarn = "Ten sach khong ton tai!";
+	}
+	clreop(wherex(), wherey());
+	printWarn(strWarn);
+	wait(2);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Name:       editBook
+// Purpose:    Thuc hien viec chinh sua 1 cuon sach cua thu thu
+// Parameters:
+// Return:    
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void editBook(void){
+	int     indexBook, newTotalBook;
+	short   x, y;
+	int     userChoose;
+	string  strWarn = "";
+	string  nameBook, newAuthBook, newNoBook, newNameBook, totalBook;
+	Book isBook, oldBook;
+	//show title
+	printUserLogin(customer.c_accounts.accountNo);
+	printTitle("CHINH SUA MOT CUON SACH");
+
+
+	//show notice and input name book
+	nameBook = inputString("Nhap ten cuon sach muon xoa: ");
+	nameBook = formatString(nameBook);
+
+	indexBook = searchBook(books, nameBook);
+
+	if (indexBook != -1){
+		setWindows(120);
+		printBookDetail(books, indexBook);
+
+		x = wherex();
+		y = wherey();
+
+		while (1)
+		{
+			clreop(x, y);
+			cout << "    Chinh sua thong tin sach nay (1:Yes / 0:No): " << endl << endl;
+			printWarn(strWarn);
+			cout << " >> ";
+			cin >> userChoose;
+			if (!inputGood() || userChoose < 0 || userChoose > 1) {
+				strWarn = "Khong hop le: 1:Yes / 0:No";
+			}
+			else{
+				if (userChoose == 1){
+					clreop(x, y);
+					//Dua con tro man hinh ve day
+					x = wherex();
+					y = wherey();
+					oldBook = books[indexBook];
+					cout << " ** Neu khong chinh sua thi de trong va nhan Enter" << endl;
+					cout << " >> Tieu de sach: " << oldBook.bookTitle << endl;
+
+					//Chinh sua ten sach
+					cout << " >> Nhap tieu de sach: ";
+					getline(cin, newNameBook);
+					if (newNameBook.length() == 0)
+					{
+						newNameBook = oldBook.bookTitle;
+					}
+					newNameBook = formatString(newNameBook);
+
+					//Chinh sua ten tac gia
+					cout << " >> Tac gia sach: " << oldBook.author << endl;
+					cout << " >> Nhap tac gia sach: ";
+					getline(cin, newAuthBook);
+					if (newAuthBook.length() == 0)
+					{
+						newAuthBook = oldBook.author;
+					}
+					newAuthBook = formatString(newAuthBook);
+
+					//Chinh sua so luong sach
+					cout << " >> So luong sach: " << oldBook.countBook << endl;
+					cout << " >> Nhap so luong sach: ";
+					getline(cin, totalBook);
+					if (totalBook.length() == 0)
+					{
+						newTotalBook = oldBook.countBook;
+					}
+					else {
+						newTotalBook = stringToint(totalBook);
+					}
+
+					//Lay lai ID sach
+					newNoBook = oldBook.book_no;
+
+					//Cho vao ten sach moi
+					isBook.author = newAuthBook;
+					isBook.bookTitle = newNameBook;
+					isBook.book_no = newNoBook;
+					isBook.countBook = newTotalBook;
+
+					//Xoa vi tri man hinh tren
+					clreop(x, y);
+					cout << " ** Thong tin sach cap nhat: " << endl;
+					cout << " >> Ma sach: " << newNoBook << endl;
+					cout << " >> Tieu de sach: " << newNameBook << endl;
+					cout << " >> Tac gia sach: " << newAuthBook << endl;
+					cout << " >> So luong sach: " << newTotalBook << endl;
+
+					while (1)
+					{
+						cout << "    Xac nhan thong tin sach nay (1:Yes / 0:No): " << endl << endl;
+						printWarn(strWarn);
+						cout << " >> ";
+						cin >> userChoose;
+						if (!inputGood() || userChoose < 0 || userChoose > 1) {
+							strWarn = "Khong hop le: 1:Yes / 0:No";
+						}
+						else{
+							if (userChoose == 1){
+								//Xoa du lieu cu
+								books.erase(books.begin() + indexBook);
+
+								//Them du lieu moi
+								books.push_back(isBook);
+								strWarn = "Cap nhat thong tin sach moi thanh cong!!!";
+							}
+							else{
+								strWarn = "[Cancel] Thong tin sach chua cap nhat moi";
+							}
+							break;
+						}
+					}
 				}
 				break;
 			}

@@ -18,6 +18,7 @@ void printUser(const User &);
 void printRole(const Role &, const AccountRoleMap &);
 void printBorrowBook(const vector<Borrow_Book> &);
 void printBookDetail(const vector<Book>&, const int &);
+void inputRole(string, role_t []);
 string inputUserName(void);
 string inputPassword(string);
 string inputString(string);
