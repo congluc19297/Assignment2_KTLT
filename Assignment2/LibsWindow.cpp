@@ -16,7 +16,7 @@ void setWindows(void)
 	SetConsoleTitle("LIBPRO");
 	SMALL_RECT windowSize = { 0, 0, 79, 24 };
 	SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
-	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), { 80, 300 });
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), { 120, 300 });
 }
 void setWindows(short x)
 {

@@ -340,6 +340,7 @@ void inputRole(string request, role_t roleDesc[]) {
 // Purpose:    Hien thi danh sach san pham
 // Parameters:
 // - list
+// - customer
 // Return:     
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void printBook(const vector<Borrow_Book> &list, const Customer &customer) {
@@ -419,7 +420,7 @@ void printSingleBook(const Book &BOOK) {
 // Return:     
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void printAccount(const vector<Account> &list, const vector<User> &users) {
-
+	setWindows(120);
 	cout << setw(93) << setfill('=') << '=' << endl;
 	cout << left << "|" << setw(13) << setfill(' ') << "ID/CMND"
 		<< left << "|" << setw(19) << setfill(' ') << "USERNAME"
@@ -439,6 +440,7 @@ void printAccount(const vector<Account> &list, const vector<User> &users) {
 			<< left << "|" << endl;
 	}
 	cout << setw(93) << setfill('=') << '=' << endl << endl;
+	setWindows();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -556,10 +558,10 @@ void printRole(const Role &singleRole, const AccountRoleMap &singleRoleMap) {
 void printBorrowBook(const vector<Borrow_Book> &BBB) {
 
 	setWindows(120);
-	cout << setw(100) << setfill('=') << '=' << endl;
-	cout << left << "|" << setw(20) << setfill(' ') << "USERNAME"
+	cout << setw(110) << setfill('=') << '=' << endl;
+	cout << left << "|" << setw(20) << setfill(' ') << "ID"
 		<< left << "|" << setw(40) << setfill(' ') << "TEN SACH"
-		<< left << "|" << setw(12) << setfill(' ') << "TRANG THAI"
+		<< left << "|" << setw(22) << setfill(' ') << "TRANG THAI"
 		<< left << "|" << setw(11) << setfill(' ') << "NGAY MUON"
 		<< left << "|" << setw(11) << setfill(' ') << "NGAY TRA"
 		<< left << "|" << endl;
@@ -580,8 +582,8 @@ void printBorrowBook(const vector<Borrow_Book> &BBB) {
 		else if (BBB[i].acc_Book.countBook == -1) status = "Da tra sach (DH)";
 		else if (BBB[i].acc_Book.countBook < -1) status = "Da tra sach (TH)";
 		else if (BBB[i].acc_Book.countBook > 2) status = "TB tra sach (TH)";
-		cout << left << "|" << setw(20) << setfill(' ') << BBB[i].accountNo.substr(0, 30)
-			<< left << "|" << setw(40) << setfill(' ') << BBB[i].acc_Book.bookTitle.substr(0, 50)
+		cout << left << "|" << setw(20) << setfill(' ') << BBB[i].acc_Book.book_no.substr(0, 20)
+			<< left << "|" << setw(40) << setfill(' ') << BBB[i].acc_Book.bookTitle.substr(0, 40)
 			<< left << "|" << setw(22) << setfill(' ') << status
 			<< left << "|" << setw(11) << setfill(' ') << toString(BBB[i].dateBorrowBook)
 			<< left << "|" << setw(11) << setfill(' ') << toString(BBB[i].dateReturnBook)
@@ -604,11 +606,9 @@ void printBorrowBook(const vector<Borrow_Book> &BBB) {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 int inputInt(string request) {
 	string  str = "";
-	string strEnd;
 	string  strWarn = "";
 	short   x, y;
 	int intRes;
-	int lengRes = 0;
 
 	x = wherex();
 	y = wherey();
@@ -626,18 +626,21 @@ int inputInt(string request) {
 			break;
 		}
 	}
-	lengRes = 0;
+
 	for (int i = 0; i < str.length(); i++)
 	{
 		char c = str[i];
 		int ascii_c = c;
-		if (ascii_c >= 48 && ascii_c <= 57){
+		/*if (ascii_c >= 48 && ascii_c <= 57){
 			strEnd.push_back(c);
 			lengRes++;
+		}*/
+		if (ascii_c < 48 || ascii_c > 57) {
+			return -1;
 		}
 	}
 	cout << endl;
-	intRes = stringToint(strEnd);
+	intRes = stringToint(str);
 	return intRes;
 }
 
